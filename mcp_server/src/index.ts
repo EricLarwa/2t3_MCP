@@ -1,8 +1,10 @@
-import "dotenv/config";
+import { config } from "dotenv";
 import Anthropic from "@anthropic-ai/sdk";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+
+config();
 
 const apiKey = process.env.ANTHROPIC_API_KEY;
 
@@ -29,7 +31,7 @@ server.registerTool(
         const response = await anthropic.messages.create({
             model: "claude-3.5-sonnet-latest",
             max_tokens: 512,
-            messages: [{ role: "user",content: prompt }]
+            messages: [{ role: "user", content: prompt }]
         });
 
         const text = response.content
