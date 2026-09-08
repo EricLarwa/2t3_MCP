@@ -1,11 +1,12 @@
 import * as React from "react";
 import logo from "../../../logo.svg";
-type HeaderProps = React.ComponentProps<"div">;
+import { cn } from "../../../lib/utils";
+type HeaderProps = React.ComponentProps<"header">;
 
 function Header({ className, ...props }: HeaderProps) {
   return (
-    <header className={className} {...props}>
-        <img src={logo} alt="bun logo" className="h-8 w-8 ml-4 mt-2" />
+    <header className={cn("flex h-12 w-full shrink-0 items-center border-b bg-background px-4 sm:px-6", className)} {...props}>
+        <img src={logo} alt="Bun logo" className="h-8 w-8" />
     </header>
   );
 }
