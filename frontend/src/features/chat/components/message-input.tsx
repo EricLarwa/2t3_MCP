@@ -1,6 +1,6 @@
 
-import { Input } from "../input";
-import { Button } from "../button";
+import { Input } from "./../../../components/ui/input";
+import { Button } from "./../../../components/ui/button";
 
 type UserPromptProps = {
   onSubmit: (value: string) => void;
