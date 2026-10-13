@@ -1,18 +1,24 @@
 
-import { ChatInterface } from "./components/ui/chat_window/chat_interface";
+import { useChat } from "./features/chat/use-chat";
+import { ChatInterface } from "./features/chat/components/chat-window";
+import { UserPrompt } from "./features/chat/components/message-input";
 import { Window } from "./components/ui/window";
-import { UserPrompt } from "./components/ui/chat_window/user_prompt";
 import "./index.css";
 
 export function App() {
+  const { messages, isLoading, error, handleSendMessage } = useChat();
   return (
     <Window>
       <ChatInterface>
-        <div className="w-fit max-w-full rounded-md border px-4 py-3 text-sm text-foreground">
-          Chat is Rendering
-        </div>
+        {messages.map((message, index) => (
+          <div key={index} className="w-fit max-w-full whitespace-pre-wrap rounded-md border px-4 py-3 text-sm text-foreground">
+            {message}
+          </div>
+        ))}
+        {isLoading ? <p role="status">Sending…</p> : null}
+        {error ? <p role="alert">{error}</p> : null}
       </ChatInterface>
-      <UserPrompt onSubmit={(value) => console.log(value)} />
+      <UserPrompt onSubmit={handleSendMessage} disabled={isLoading} />
     </Window>
   );
 }

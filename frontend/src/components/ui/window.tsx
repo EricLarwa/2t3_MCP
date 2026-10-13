@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Header } from "./chat_window/header";
+import { Header } from "../../features/chat/components/chat-header";
 import { cn } from "../../lib/utils";
 
 function Window({ className, children, ...props }: React.ComponentProps<"div">) {
