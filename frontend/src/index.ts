@@ -1,10 +1,15 @@
 import { serve } from "bun";
 import index from "./index.html";
+import { handleChatSend } from "../../backend/routes/chat";
 
 const server = serve({
   routes: {
     // Serve index.html for all unmatched routes.
     "/*": index,
+
+    "/api/chat/send": {
+      POST: handleChatSend,
+    },
 
     "/api/hello": {
       async GET(req) {
