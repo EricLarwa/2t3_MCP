@@ -11,7 +11,7 @@ function messageClassName(author: "user" | "assistant") {
         : "bg-secondary text-secondary-foreground";
 }
 
-async function MessageList({ messages, author }: MessageListProps) {
+function MessageList({ messages, author }: MessageListProps) {
 
     const messageList = messages.map((message, index) => (
         <Card

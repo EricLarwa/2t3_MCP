@@ -2,6 +2,8 @@
 import { useRef, useState } from "react";
 import { sendMessage } from "./chat-api";
 
+const AUTHOR = "user"; // TODO: Make this dynamic based on the actual author of the message.
+
 interface ChatProps {
     messages: string[];
     isLoading: boolean;
@@ -17,6 +19,7 @@ export function useChat(): ChatProps {
 
     const handleSendMessage = async (newMessage: string) => {
         const message = newMessage.trim();
+        const authorr = AUTHOR; 
         if (!message || sending.current) return;
 
         const conversation = [...messages, message];
