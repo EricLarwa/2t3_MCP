@@ -15,7 +15,7 @@ export function AppShell() {
     return (
         <Window>
             <ChatInterface>
-                <MessageList messages={messages} author="user" />
+                <MessageList messages={messages} />
                 {isLoading ? <p role="status">Sending…</p> : null}
                 {error ? <p role="alert">{error}</p> : null}
             </ChatInterface>
