@@ -4,17 +4,14 @@ import { ChatInterface } from "./features/chat/components/chat-window";
 import { UserPrompt } from "./features/chat/components/message-input";
 import { Window } from "./components/ui/window";
 import "./index.css";
+import { MessageList } from "./features/chat/components/message-list";
 
 export function App() {
   const { messages, isLoading, error, handleSendMessage } = useChat();
   return (
     <Window>
       <ChatInterface>
-        {messages.map((message, index) => (
-          <div key={index} className="w-fit max-w-full whitespace-pre-wrap rounded-md border px-4 py-3 text-sm text-foreground">
-            {message}
-          </div>
-        ))}
+        <MessageList messages={messages} author="user" />
         {isLoading ? <p role="status">Sending…</p> : null}
         {error ? <p role="alert">{error}</p> : null}
       </ChatInterface>
