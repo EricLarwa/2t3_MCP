@@ -24,3 +24,4 @@ export async function sendMessage(messages: string[]): Promise<string> {
     }
     return data.reply;
 }
+    
