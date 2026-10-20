@@ -27,25 +27,6 @@ UserPrompt.onSubmit
   -> throws "MCP chat integration is not implemented."
 ```
 
-`app-shell.tsx`, `backend/index.ts`, and `shared/types.ts` currently have no implementation. The MCP client draft is not imported into the request flow. The MCP server is a separate program exposing an `ask-claude` tool with a single `prompt` argument over stdio.
-
-## Target component tree
-
-```text
-frontend.tsx                       Mount React
-  App                             Connect chat state to the UI
-    AppShell                      Application layout
-      Header                      Chat title/branding
-      ChatInterface               Scrollable conversation area
-        MessageList               Render each message using its own role
-        loading/error state
-      UserPrompt                  Collect and submit input
-```
-
-Keep `useChat()` in `App` for this first version. Pass data down through props and submission events back up through callbacks. Neither the shell nor the input needs to import the hook.
-
-`AppShell` should compose the header and children. `Window` can remain a generic full-height container inside the shell, but move the header out of `Window` to avoid rendering it twice. A sidebar is optional future work, not required to finish chat.
-
 ## File responsibilities and connections
 
 | File | Responsibility | Connections / remaining work |
@@ -68,30 +49,6 @@ Keep `useChat()` in `App` for this first version. Pass data down through props a
 | `backend/mcp/client.ts` | MCP transport adapter | Replace the Express route draft with an MCP client that connects over stdio, calls `ask-claude`, extracts text, handles tool errors/timeouts, and closes cleanly. |
 | `mcp_server/src/index.ts` | Implement the MCP tool | Keep provider credentials and the Claude call here. Currently accepts one prompt; extend its input for structured history when adding proper multi-turn support. |
 
-## Shared contract
-
-Suggested contents for `shared/types.ts`:
-
-```ts
-export type ChatRole = "user" | "assistant";
-
-export interface ChatMessage {
-  id: string;
-  role: ChatRole;
-  content: string;
-}
-
-export interface ChatSendRequest {
-  messages: ChatMessage[];
-}
-
-export interface ChatSendResponse {
-  reply: ChatMessage; // role must be "assistant"; validate at runtime
-}
-
-export interface ChatErrorResponse {
-  error: string;
-}
 ```
 
 Today both sides use `string[]` and a string reply. Update the hook, API adapter, route, service, and renderer together when adopting this contract. The current array loses the distinction between user and assistant turns, and `App` labels every message as a user message.
