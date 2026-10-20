@@ -20,9 +20,9 @@ export async function handleChatSend(req: Request): Promise<Response> {
         const reply = await sendMessage(messages);
         return Response.json({ reply });
     } catch (error) {
-        // The service is currently a placeholder, so report that explicitly.
+        console.error("MCP chat request failed:", error);
         return Response.json({
             error: error instanceof Error ? error.message : "Failed to send message.",
-        }, { status: 501 });
+        }, { status: 502 });
     }
 }

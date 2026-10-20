@@ -1,4 +1,8 @@
-export async function sendMessage(_messages: string[]): Promise<string> {
-    // TODO: Call the MCP client once backend/mcp/client.ts is implemented.
-    throw new Error("MCP chat integration is not implemented.");
+import { askClaude } from "../mcp/client";
+
+export async function sendMessage(messages: string[]): Promise<string> {
+    const prompt = messages.length === 1
+        ? messages[0]!
+        : `Continue this conversation by responding to the final entry. Entries are in chronological order:\n${JSON.stringify(messages)}`;
+    return askClaude(prompt);
 }

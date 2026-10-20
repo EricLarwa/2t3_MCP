@@ -1,5 +1,13 @@
 # mcp_server
 
+The chat app launches this stdio server automatically. From the repository root,
+run `bun install`, install this folder's dependencies with `bun install --cwd mcp_server`,
+then run `bun dev` (or `bun run backend`). Open `http://localhost:3000`.
+
+Set `ANTHROPIC_API_KEY` in a root `.env` file or `mcp_server/.env`.
+Optionally set `ANTHROPIC_MODEL` to override the default `claude-sonnet-4-6`.
+The backend reuses one MCP connection and closes it on shutdown.
+
 To install dependencies:
 
 ```bash

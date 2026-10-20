@@ -4,7 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
-config();
+config({ quiet: true });
 
 const apiKey = process.env.ANTHROPIC_API_KEY;
 
@@ -29,7 +29,7 @@ server.registerTool(
     },
     async ({ prompt }) => {
         const response = await anthropic.messages.create({
-            model: "claude-3.5-sonnet-latest",
+            model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
             max_tokens: 512,
             messages: [{ role: "user", content: prompt }]
         });
